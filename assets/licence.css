@@ -1,0 +1,10 @@
+body {
+    margin: auto;
+    width: 600px;
+    height: 400px;
+    background-color: rgb(190, 190, 190);
+}
+
+li {
+    list-style: none;
+}

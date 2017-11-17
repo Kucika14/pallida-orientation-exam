@@ -6,7 +6,7 @@ let search = function() {
     let button = document.querySelector('.ok');
     let input = document.querySelector('.user_input').value;
     button.addEventListener('click', function() {
-        ajax('GET', '', '/search', carList);
+        ajax('GET', '', '/search' + input, carList);
     });
 };
 

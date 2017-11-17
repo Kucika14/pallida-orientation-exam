@@ -16,23 +16,30 @@ const connection = mysql.createConnection({
   password : '2312paska',
   database : 'licence_plates'
 });
- 
+
 connection.connect();
 
 
 app.get('/', function(request, response) {
-  response.sendFile(__dirname + '/licence_plates.html');
+    response.sendFile(__dirname + '/licence_plates.html');
 });
 
 
 app.get('/search', function(request, response) {
-    connection.query(`SELECT * FROM licence_plates ORDER BY plate ASC`, function (error, results) {
+    let searchParameter = Object.keys(request.query)[0];
+    let searchValue = request.query[searchParameter];
+    let data = [];
+    connection.query('SELECT * FROM licence_plates ' + searchParameter + ' = ' + searchValue + ' ORDER BY plate ASC', function (error, results) {
       if (error) {
         console.log({ "result": "error", "message": "invalid input" })
       };
-      response.send(results);
+      results.forEach(function (e) {
+        data.push(e);
+      });
+      response.send(data);
   });
 });
+
 
 app.get('/search:brand', function(request, response) {
     connection.query(`SELECT * FROM licence_plates, WHERE car_brand LIKE "`, function (error, results) {
@@ -42,6 +49,7 @@ app.get('/search:brand', function(request, response) {
       response.send(results);
   });
 });
+
 
 
 app.listen(8080, () => console.log('server running on "http://localhost:8080"'));

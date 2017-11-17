@@ -26,19 +26,18 @@ app.get('/', function(request, response) {
 
 
 app.get('/search', function(request, response) {
-    connection.query(`SELECT * FROM licence_plates`, function (error, results) {
+    connection.query(`SELECT * FROM licence_plates ORDER BY plate ASC`, function (error, results) {
       if (error) {
-        console.log(error.toString())
+        console.log({ "result": "error", "message": "invalid input" })
       };
-      console.log(results)
       response.send(results);
   });
 });
 
-app.get('/search/:brand', function(request, response) {
-    connection.query(`SELECT * FROM licence_plates where car_brand LIKE "`, function (error, results) {
+app.get('/search:brand', function(request, response) {
+    connection.query(`SELECT * FROM licence_plates, WHERE car_brand LIKE "`, function (error, results) {
       if (error) {
-          console.log(error.toString())
+          console.log({ "result": "error", "message": "invalid input" })
       };
       response.send(results);
   });

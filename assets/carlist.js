@@ -12,11 +12,11 @@ let search = function(){
 
 let carList = (data) => {
     console.log(data)
-    table.innerHTML = ''
     data.forEach(function(e) {
         let car = document.createElement('li');
         table.appendChild(car);
-        car.textContent = e
+        car.textContent = e.plate
+
     })
 }
 

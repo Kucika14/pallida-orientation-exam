@@ -1,17 +1,27 @@
 'use strict';
 
-let table = document.querySelector('body')
+let table = document.querySelector('.carlist')
 
-let listOfCars = function(){
-    ajax('GET', '', '/search', carList);
-}
+let search = function(){
+    let button = document.querySelector('.ok');
+    let input = document.querySelector('.user_input').value;
+    button.addEventListener('click', function() {
+        ajax('GET', '', '/search' , carList);
+    });
+};
 
 let carList = (data) => {
     console.log(data)
     table.innerHTML = ''
     data.forEach(function(e) {
-        let play = document.createElement('li');
-        table.appendChild(play);
-        play.textContent = e.car_brand
+        let car = document.createElement('li');
+        table.appendChild(car);
+        car.textContent = e
     })
 }
+
+let listPlayLists = function(){
+    ajax('GET', '', '/playlists', playListData);
+}
+
+    

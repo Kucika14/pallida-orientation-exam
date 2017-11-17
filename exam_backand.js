@@ -26,25 +26,22 @@ app.get('/', function(request, response) {
 
 
 app.get('/search', function(request, response) {
-    connection.query(`SELECT car_brand FROM licence_plates`, function (error, results) {
-      if (error) throw error;
+    connection.query(`SELECT * FROM licence_plates`, function (error, results) {
+      if (error) {
+        console.log(error.toString())
+      };
+      console.log(results)
       response.send(results);
   });
 });
 
-
-app.get('/q', function(req, res) {
-  let searchParameter = Object.keys(req.query)[0]
-  let searchValue = req.query[searchParameter]
-  console.log({searchParameter : searchValue, dwa : searchParameter})
-  let data = [];
-  connection.query("select * from book_mast where " + searchParameter + " = " + searchValue,  function(err, result, fields){
-    console.log()
-    result.forEach(function(element){
-      data.push(element.book_name)
-      });
-      res.send(data);
-  })
+app.get('/search/:brand', function(request, response) {
+    connection.query(`SELECT * FROM licence_plates where car_brand LIKE "`, function (error, results) {
+      if (error) {
+          console.log(error.toString())
+      };
+      response.send(results);
+  });
 });
 
 
